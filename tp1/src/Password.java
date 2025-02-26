@@ -39,17 +39,16 @@ public class Password {
      * @return the 6-digit number that matches, or null if no match is found
      */
     public static String bruteForce6Digit(String targetHash) {
-        for (int i = 0; i < 100000; i++ ) {
+        for (int i = 0; i < 100000; i++) {
             String numb = String.format("%06d", i);
             String hashednumb = hashPassword(numb);
-            if (hashednumb.equals(targetHash) ); {
-                return hashednumb;
+            if (hashednumb.equals(targetHash))
+                ;
+            {
+                return numb;
             }
 
-
         }
-
-        // Code here
 
         return null;
     }
@@ -69,12 +68,43 @@ public class Password {
      * @return true if the password is strong, false otherwise
      */
     public static boolean isStrongPassword(String password) {
+        if (password == null || password.length() < 12) {
+            return false;
+        }
 
-        // Code here
+        boolean hasUppercase = false;
+        boolean hasLowercase = false;
+        boolean hasDigit = false;
+        boolean hasWhitespace = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c))
+                hasUppercase = true;
+            if (Character.isLowerCase(c))
+                hasLowercase = true;
+            if (Character.isDigit(c))
+                hasDigit = true;
+            if (Character.isWhitespace(c))
+                hasWhitespace = true;
+            if (hasUppercase && hasLowercase && hasDigit && !hasWhitespace) {
+                return true;
+            }
+        }
 
         return false;
     }
-
+    /* 
+    public static void main(String[] args) {
+        System.out.println(isStrongPassword("WeakPass1")); // false (moins de 12 caractères)
+        System.out.println(isStrongPassword("StrongPass123")); // true
+        System.out.println(isStrongPassword("NOLOWERCASE123")); // false (pas de minuscule)
+        System.out.println(isStrongPassword("nouppercase123")); // false (pas de majuscule)
+        System.out.println(isStrongPassword("NoDigitHere!@#")); // false (pas de chiffre)
+        System.out.println(isStrongPassword("ValidPass1234")); // true
+        System.out.println(isStrongPassword("Invalid1234")); // false (contient un espace)
+    }
+    */
+    
     /**
      * Checks the strength of multiple passwords and stores the results in a
      * HashMap.
@@ -109,18 +139,19 @@ public class Password {
         return null;
     }
 
-    public static void main(String[] args) {
-        if (args.length == 0) {
-            // No arguments provided, running all questions
-            for (int i = 1; i <= 4; i++)
-                runQuestion(String.valueOf(i));
-        } else {
-            for (String arg : args) {
-                runQuestion(arg);
-            }
-        }
-    }
-
+    /*
+     * public static void main(String[] args) {
+     * if (args.length == 0) {
+     * // No arguments provided, running all questions
+     * for (int i = 1; i <= 4; i++)
+     * runQuestion(String.valueOf(i));
+     * } else {
+     * for (String arg : args) {
+     * runQuestion(arg);
+     * }
+     * }
+     * }
+     */
     private static void runQuestion(String questionNumber) {
 
         System.out.println("\nQ" + questionNumber + "\n" + "-".repeat(20));
