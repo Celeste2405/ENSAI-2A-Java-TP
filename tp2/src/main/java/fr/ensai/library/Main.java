@@ -12,6 +12,12 @@ public class Main {
                 tolkien,
                 1954,
                 423);
+        Library ensai= new Library("ensai_lib");
+        Magazine elle = new Magazine("5256","Elle","5522",2024 , 16);
+        ensai.add(elle);
+        ensai.loadBooksFromCSV("books.csv");
+        ensai.displayItems();
+
 
         System.out.println(fellowshipOfTheRing.toString());
     }
